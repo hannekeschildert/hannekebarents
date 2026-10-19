@@ -1,0 +1,210 @@
+/* Hanneke Barents – rustige galerijmuur: het werk is de ster, alles eromheen blijft stil. */
+
+:root {
+  --wall: #eef0ef;
+  --ink: #1e2325;
+  --quiet: #5c6569;
+  --line: #d3d8d7;
+  --accent: #2a41a8;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --gutter: clamp(1.1rem, 4vw, 3rem);
+  --max: 84rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--wall);
+  color: var(--ink);
+  font: 1.125rem/1.65 var(--serif);
+  text-rendering: optimizeLegibility;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+picture { display: block; }
+a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+.skip {
+  position: absolute; left: -999px; top: 0; z-index: 10;
+  background: var(--ink); color: var(--wall); padding: 0.6rem 1rem; font-family: var(--sans);
+}
+.skip:focus { left: var(--gutter); top: 0.5rem; }
+
+.wrap { max-width: var(--max); margin: 0 auto; padding-inline: var(--gutter); }
+.wrap.narrow { max-width: 52rem; }
+
+/* ---- kop ---- */
+.site-head { padding-block: clamp(1.2rem, 3vw, 2rem) clamp(1.2rem, 2.4vw, 1.8rem); }
+.site-head .wrap {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: 0.7rem 2rem;
+}
+.wordmark {
+  font-size: clamp(1.75rem, 3.4vw, 2.5rem); line-height: 1.1; letter-spacing: -0.01em;
+  text-decoration: none;
+}
+.wordmark:hover { color: var(--ink); }
+.nav { display: flex; flex-wrap: wrap; gap: 0.3rem 1.7rem; font: 500 1rem/1.2 var(--sans); }
+.nav a { text-decoration: none; padding: 0.35rem 0; border-bottom: 2px solid transparent; }
+.nav a:hover { border-color: var(--line); color: var(--ink); }
+.nav a[aria-current="page"] { border-color: var(--accent); }
+
+.lang-switch { display: inline-flex; align-items: center; padding: 0.35rem 0; margin-left: 0.4rem; border-bottom: 2px solid transparent; }
+.lang-switch:hover { border-color: var(--line); }
+.flag { display: block; height: 1rem; width: auto; outline: 1px solid rgba(30, 35, 37, 0.25); outline-offset: 0; }
+
+/* ---- algemeen ---- */
+main { padding-bottom: clamp(3rem, 8vw, 6rem); }
+.intro {
+  margin: clamp(0.5rem, 2vw, 1.5rem) 0 clamp(2rem, 5vw, 3.5rem);
+  max-width: 28ch; font-size: clamp(1.6rem, 3.4vw, 2.5rem); line-height: 1.2; letter-spacing: -0.01em;
+}
+.page-title {
+  margin: clamp(0.4rem, 2vw, 1.2rem) 0 clamp(1.4rem, 3vw, 2.2rem);
+  font-size: clamp(1.9rem, 3.6vw, 2.75rem); font-weight: 400; line-height: 1.15; letter-spacing: -0.01em;
+}
+.section-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  margin-bottom: 1.6rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--line);
+}
+.section-head h2 { margin: 0; font-size: 1.5rem; font-weight: 400; }
+.section-head a { font: 500 0.95rem/1.2 var(--sans); }
+.meta { margin: 0 0 0.2rem; font: 500 0.9rem/1.4 var(--sans); color: var(--quiet); }
+.empty { color: var(--quiet); font-style: italic; }
+.back { margin: 0 0 1.4rem; font: 500 0.95rem/1.2 var(--sans); }
+.back a { color: var(--quiet); }
+
+.page-title-alt { display: block; margin-top: 0.3rem; font-size: 0.55em; color: var(--quiet); }
+.lang-note { margin: 0 0 0.8rem; font: italic 0.95rem/1.4 var(--serif); color: var(--quiet); }
+
+.prose { max-width: 62ch; }
+.prose > :first-child { margin-top: 0; }
+.prose h2, .prose h3 { font-weight: 600; line-height: 1.25; margin: 2rem 0 0.5rem; }
+.prose h2 { font-size: 1.45rem; }
+.prose h3 { font-size: 1.2rem; }
+.prose p, .prose ul, .prose ol { margin: 0 0 1.1rem; }
+.prose img { margin: 1.6rem 0; }
+.prose a { color: var(--accent); }
+
+/* ---- de muur ---- */
+.wall { column-width: 20rem; column-gap: clamp(1rem, 2.4vw, 2rem); }
+.work { break-inside: avoid; margin: 0 0 clamp(1.4rem, 3vw, 2.4rem); }
+.work a { display: block; text-decoration: none; }
+.work img { width: 100%; background: var(--line); }
+.work figcaption {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  margin-top: 0.55rem; font-size: 1rem; line-height: 1.3;
+}
+.work a:hover .work-title, .work a:focus-visible .work-title { text-decoration: underline; text-underline-offset: 0.2em; }
+
+.status {
+  display: inline-flex; align-items: center; gap: 0.45rem; margin: 0; white-space: nowrap;
+  font: 500 0.875rem/1.2 var(--sans); color: var(--quiet);
+}
+.status::before {
+  content: ""; width: 0.65rem; height: 0.65rem; border-radius: 50%;
+  background: var(--accent); border: 2px solid var(--accent);
+}
+.status.is-sold::before { background: transparent; border-color: var(--quiet); }
+
+.no-image {
+  width: 100%; aspect-ratio: 4 / 5; background: var(--line);
+}
+
+.filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+.filters button {
+  font: 500 0.95rem/1 var(--sans); padding: 0.6rem 1rem; cursor: pointer;
+  background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 999px;
+}
+.filters button:hover { border-color: var(--ink); }
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--wall); border-color: var(--ink); }
+
+/* ---- één schilderij ---- */
+.painting {
+  display: grid; gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start;
+  grid-template-columns: minmax(0, 1.7fr) minmax(16rem, 1fr);
+}
+.painting-image img { width: auto; max-height: 86vh; margin-inline: auto; background: var(--line); }
+.label { position: sticky; top: 2rem; }
+.label h1 { margin: 0 0 1.1rem; font-size: clamp(1.7rem, 3vw, 2.2rem); font-weight: 400; line-height: 1.15; letter-spacing: -0.01em; }
+.facts { margin: 0 0 1.2rem; padding: 0; }
+.facts > div {
+  display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.75rem;
+  padding: 0.5rem 0; border-top: 1px solid var(--line);
+}
+.facts > div:last-child { border-bottom: 1px solid var(--line); }
+.facts dt { font: 500 0.9rem/1.6 var(--sans); color: var(--quiet); }
+.facts dd { margin: 0; }
+.label .status { margin-bottom: 1.2rem; }
+.label .prose { margin-bottom: 1.4rem; font-size: 1.05rem; }
+.ask { margin: 1.6rem 0 0; }
+.button {
+  display: inline-block; padding: 0.85rem 1.4rem; border-radius: 2px;
+  background: var(--ink); color: var(--wall); text-decoration: none; font: 600 1rem/1.2 var(--sans);
+}
+.button:hover { background: var(--accent); color: #fff; }
+
+.pager {
+  display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+  margin-top: clamp(2.5rem, 6vw, 4.5rem); padding-top: 1.2rem; border-top: 1px solid var(--line);
+}
+.pager a { text-decoration: none; max-width: 22rem; }
+.pager span { display: block; font: 500 0.875rem/1.4 var(--sans); color: var(--quiet); }
+.pager-older { margin-left: auto; text-align: right; }
+
+/* ---- nieuws ---- */
+.news-list { display: grid; gap: clamp(2rem, 5vw, 3rem); }
+.news-row { display: grid; grid-template-columns: 16rem 1fr; gap: 1.6rem; align-items: start; }
+.news-row.no-photo { grid-template-columns: 1fr; }
+.news-row h2, .news-card h3 { margin: 0 0 0.4rem; font-size: 1.55rem; font-weight: 400; line-height: 1.2; }
+.news-row h2 a, .news-card h3 a { text-decoration: none; }
+.news-row h2 a:hover, .news-card h3 a:hover { text-decoration: underline; }
+.news-row p, .news-card p { margin: 0; }
+.news-row .meta, .news-card .meta { margin-bottom: 0.2rem; }
+.news-image img { width: 100%; background: var(--line); }
+.news-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.5rem, 4vw, 3rem); }
+.news-card .news-image { display: block; margin-bottom: 0.9rem; }
+.home-news { margin-top: clamp(3rem, 7vw, 5rem); }
+
+.post-head h1 { margin: 0 0 1.4rem; font-size: clamp(1.9rem, 3.6vw, 2.75rem); font-weight: 400; line-height: 1.15; letter-spacing: -0.01em; }
+.post-cover { margin: 0 0 2rem; }
+.post-cover img { width: 100%; background: var(--line); }
+
+/* ---- over / contact ---- */
+.page-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(14rem, 26rem); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+.page-grid.no-photo { grid-template-columns: minmax(0, 1fr); }
+.page-photo img { width: 100%; background: var(--line); }
+.contact { margin: 2rem 0 0; padding: 0; max-width: 32rem; }
+.contact > div { display: grid; grid-template-columns: 7rem 1fr; gap: 0.75rem; padding: 0.7rem 0; border-top: 1px solid var(--line); }
+.contact > div:last-child { border-bottom: 1px solid var(--line); }
+.contact dt { font: 500 0.9rem/1.7 var(--sans); color: var(--quiet); }
+.contact dd { margin: 0; overflow-wrap: anywhere; }
+
+/* ---- voet ---- */
+.site-foot { border-top: 1px solid var(--line); padding-block: 1.6rem 2.4rem; font: 0.95rem/1.5 var(--sans); color: var(--quiet); }
+.site-foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.6rem 2rem; }
+.site-foot p { margin: 0; }
+.foot-links { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; }
+
+/* ---- kleine schermen ---- */
+@media (max-width: 52rem) {
+  .painting { grid-template-columns: minmax(0, 1fr); }
+  .label { position: static; }
+  .page-grid { grid-template-columns: minmax(0, 1fr); }
+  .news-pair { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 40rem) {
+  body { font-size: 1.0625rem; }
+  .news-row { grid-template-columns: minmax(0, 1fr); gap: 0.9rem; }
+  .facts > div, .contact > div { grid-template-columns: 5.5rem 1fr; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a, button, .nav a { transition: color 0.15s, background-color 0.15s, border-color 0.15s; }
+}

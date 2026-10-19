@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block main %}
+<div class="wrap">
+  <h1 class="page-title">{{ loc(page, 'title') }}</h1>
+
+  <div class="page-grid{% if not page.foto %} no-photo{% endif %}">
+    <div>
+      {% if body_fallback(page) %}<p class="lang-note">{{ t.only_other_language }}</p>{% endif %}
+      <div class="prose"{% if body_fallback(page) %} lang="nl"{% endif %}>{{ body_of(page) }}</div>
+
+      {% if page.slug == "contact" %}
+      <dl class="contact">
+        {% if site.email %}<div><dt>{{ t.label_email }}</dt><dd><a href="mailto:{{ site.email }}">{{ site.email }}</a></dd></div>{% endif %}
+        {% if site.telefoon %}<div><dt>{{ t.label_phone }}</dt><dd><a href="tel:{{ site.telefoon | digits }}">{{ site.telefoon }}</a></dd></div>{% endif %}
+        {% if site.whatsapp %}<div><dt>{{ t.label_whatsapp }}</dt><dd><a href="https://wa.me/{{ site.whatsapp | digits }}" rel="noopener">{{ site.whatsapp }}</a></dd></div>{% endif %}
+        {% if loc(site, 'atelier') %}<div><dt>{{ t.label_studio }}</dt><dd>{{ loc(site, 'atelier') }}</dd></div>{% endif %}
+        {% if site.instagram %}<div><dt>{{ t.label_instagram }}</dt><dd><a href="{{ site.instagram }}" rel="noopener">{{ site.instagram | replace("https://", "") | replace("www.", "") | trim("/") }}</a></dd></div>{% endif %}
+        {% if site.facebook %}<div><dt>{{ t.label_facebook }}</dt><dd><a href="{{ site.facebook }}" rel="noopener">{{ site.facebook | replace("https://", "") | replace("www.", "") | trim("/") }}</a></dd></div>{% endif %}
+      </dl>
+      {% endif %}
+    </div>
+
+    {% if page.foto %}
+    <div class="page-photo">{{ img(page.foto, loc(page, 'foto_alt') or "", "(min-width: 52rem) 34vw, 92vw", True) }}</div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

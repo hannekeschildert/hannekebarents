@@ -1,0 +1,13 @@
+<figure class="work" data-item data-categorie="{{ p.categorie }}" data-status="{{ p.status }}">
+  <a href="{{ L('/schilderijen/' ~ p.slug ~ '/') }}">
+    {{ img(p.image, p.alt or loc(p, 'title'), "(min-width: 70rem) 30vw, (min-width: 40rem) 46vw, 92vw", p.eager) }}
+    <figcaption>
+      <span class="work-title">{{ loc(p, 'title') }}</span>
+      {% if p.status == "Te koop" %}
+      <span class="status">{{ t.for_sale }}</span>
+      {% elif p.status == "Verkocht" %}
+      <span class="status is-sold">{{ t.sold }}</span>
+      {% endif %}
+    </figcaption>
+  </a>
+</figure>

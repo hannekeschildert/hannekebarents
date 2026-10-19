@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block main %}
+<div class="wrap">
+  <p class="back"><a href="{{ L('/schilderijen/') }}">{{ t.back_paintings }}</a></p>
+
+  <article class="painting">
+    <div class="painting-image">
+      {{ img(p.image, p.alt or loc(p, 'title'), "(min-width: 52rem) 62vw, 100vw", True) }}
+    </div>
+
+    <div class="label">
+      <h1>{{ loc(p, 'title') }}</h1>
+
+      <dl class="facts">
+        {% if p.jaar %}<div><dt>{{ t.label_year }}</dt><dd>{{ p.jaar }}</dd></div>{% endif %}
+        {% if loc(p, 'techniek') %}<div><dt>{{ t.label_technique }}</dt><dd>{{ loc(p, 'techniek') }}</dd></div>{% endif %}
+        {% if p.formaat %}<div><dt>{{ t.label_size }}</dt><dd>{{ p.formaat }}</dd></div>{% endif %}
+        {% if p.status == "Te koop" %}
+        <div><dt>{{ t.label_price }}</dt><dd>{% if p.prijs %}{{ p.prijs | euro }}{% else %}{{ t.price_on_request }}{% endif %}</dd></div>
+        {% endif %}
+      </dl>
+
+      {% if p.status == "Te koop" %}
+      <p class="status">{{ t.for_sale }}</p>
+      {% elif p.status == "Verkocht" %}
+      <p class="status is-sold">{{ t.sold }}</p>
+      {% endif %}
+
+      {% if body_of(p) %}
+      {% if body_fallback(p) %}<p class="lang-note">{{ t.only_other_language }}</p>{% endif %}
+      <div class="prose"{% if body_fallback(p) %} lang="nl"{% endif %}>{{ body_of(p) }}</div>
+      {% endif %}
+
+      {% if p.status == "Te koop" %}
+      <p class="ask">
+        {% if site.email %}
+        <a class="button" href="mailto:{{ site.email }}?subject={{ (t.interest_in ~ ' ' ~ loc(p, 'title')) | urlencode }}">{{ t.ask }}</a>
+        {% else %}
+        <a class="button" href="{{ L('/contact/') }}">{{ t.ask }}</a>
+        {% endif %}
+      </p>
+      {% endif %}
+    </div>
+  </article>
+
+  {% if newer or older %}
+  <nav class="pager" aria-label="{{ t.more_paintings }}">
+    {% if newer %}<a class="pager-newer" href="{{ L('/schilderijen/' ~ newer.slug ~ '/') }}"><span>{{ t.newer }}</span>{{ loc(newer, 'title') }}</a>{% endif %}
+    {% if older %}<a class="pager-older" href="{{ L('/schilderijen/' ~ older.slug ~ '/') }}"><span>{{ t.older }}</span>{{ loc(older, 'title') }}</a>{% endif %}
+  </nav>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block main %}
+<div class="wrap">
+  <p class="intro">{{ loc(site, 'tagline') }}</p>
+
+  {% if recent %}
+  <section aria-labelledby="recent-h">
+    <div class="section-head">
+      <h2 id="recent-h">{{ t.recent }}</h2>
+      <a href="{{ L('/schilderijen/') }}">{{ t.all_paintings }}</a>
+    </div>
+    <div class="wall">
+      {% for p in recent %}
+        {% include "_work.html" %}
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if latest_posts %}
+  <section class="home-news" aria-labelledby="news-h">
+    <div class="section-head">
+      <h2 id="news-h">{{ t.nav_news }}</h2>
+      <a href="{{ L('/nieuws/') }}">{{ t.all_news }}</a>
+    </div>
+    <div class="news-pair">
+      {% for post in latest_posts %}
+      <article class="news-card">
+        {% if post.image %}
+        <a class="news-image" href="{{ L('/nieuws/' ~ post.slug ~ '/') }}" tabindex="-1" aria-hidden="true">{{ img(post.image, "", "(min-width: 50rem) 40vw, 92vw") }}</a>
+        {% endif %}
+        <p class="meta">{{ post.date | date_fmt }}</p>
+        <h3><a href="{{ L('/nieuws/' ~ post.slug ~ '/') }}">{{ loc(post, 'title') }}</a></h3>
+        <p lang="{{ excerpt_lang(post) }}">{{ post | excerpt }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}

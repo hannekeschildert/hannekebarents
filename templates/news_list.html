@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block main %}
+<div class="wrap narrow">
+  <h1 class="page-title">{{ t.nav_news }}</h1>
+
+  {% if posts %}
+  <div class="news-list">
+    {% for post in posts %}
+    <article class="news-row{% if not post.image %} no-photo{% endif %}">
+      {% if post.image %}
+      <a class="news-image" href="{{ L('/nieuws/' ~ post.slug ~ '/') }}" tabindex="-1" aria-hidden="true">{{ img(post.image, "", "(min-width: 40rem) 16rem, 92vw") }}</a>
+      {% endif %}
+      <div>
+        <p class="meta">{{ post.date | date_fmt }}</p>
+        <h2><a href="{{ L('/nieuws/' ~ post.slug ~ '/') }}">{{ loc(post, 'title') }}</a></h2>
+        <p lang="{{ excerpt_lang(post) }}">{{ post | excerpt }}</p>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="empty">{{ t.no_posts }}</p>
+  {% endif %}
+</div>
+{% endblock %}

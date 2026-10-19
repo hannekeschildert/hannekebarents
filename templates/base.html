@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}">
+  <link rel="canonical" href="{{ canonical }}">
+  {% if alt_url %}
+  <link rel="alternate" hreflang="nl" href="{{ alternates.nl }}">
+  <link rel="alternate" hreflang="en" href="{{ alternates.en }}">
+  <link rel="alternate" hreflang="x-default" href="{{ alternates.nl }}">
+  {% endif %}
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="{{ 'en_GB' if lang == 'en' else 'nl_NL' }}">
+  <meta property="og:site_name" content="{{ site.naam }}">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ description }}">
+  <meta property="og:url" content="{{ canonical }}">
+  {% if og_image %}
+  <meta property="og:image" content="{{ site.url }}{{ og_image }}">
+  {% endif %}
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <a class="skip" href="#inhoud">{{ t.skip }}</a>
+  <header class="site-head">
+    <div class="wrap">
+      <a class="wordmark" href="{{ L('/') }}">{{ site.naam }}</a>
+      <nav class="nav" aria-label="{{ t.nav_label }}">
+        <a href="{{ L('/schilderijen/') }}"{% if url.startswith('/schilderijen/') %} aria-current="page"{% endif %}>{{ t.nav_paintings }}</a>
+        <a href="{{ L('/over/') }}"{% if url == '/over/' %} aria-current="page"{% endif %}>{{ t.nav_about }}</a>
+        <a href="{{ L('/nieuws/') }}"{% if url.startswith('/nieuws/') %} aria-current="page"{% endif %}>{{ t.nav_news }}</a>
+        <a href="{{ L('/contact/') }}"{% if url == '/contact/' %} aria-current="page"{% endif %}>{{ t.nav_contact }}</a>
+        {% if alt_url %}
+        <a class="lang-switch" href="{{ alt_url }}" hreflang="{{ 'en' if lang == 'nl' else 'nl' }}" lang="{{ 'en' if lang == 'nl' else 'nl' }}" aria-label="{{ t.switch_label }}" title="{{ t.switch_label }}">
+          {% if lang == 'nl' %}{% include "_flag_gb.html" %}{% else %}{% include "_flag_nl.html" %}{% endif %}
+        </a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <main id="inhoud">
+    {% block main %}{% endblock %}
+  </main>
+
+  <footer class="site-foot">
+    <div class="wrap">
+      <p>© {{ year }} {{ site.naam }}</p>
+      <p class="foot-links">
+        {% if site.email %}<a href="mailto:{{ site.email }}">{{ site.email }}</a>{% endif %}
+        {% if site.instagram %}<a href="{{ site.instagram }}" rel="noopener">Instagram</a>{% endif %}
+        {% if site.facebook %}<a href="{{ site.facebook }}" rel="noopener">Facebook</a>{% endif %}
+      </p>
+    </div>
+  </footer>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

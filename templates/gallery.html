@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block main %}
+<div class="wrap">
+  <h1 class="page-title">{{ t.nav_paintings }}</h1>
+
+  {% if categories|length > 1 or any_for_sale %}
+  <div class="filters" data-filters hidden>
+    <button type="button" data-filter="all" aria-pressed="true">{{ t.filter_all }}</button>
+    {% for c in categories %}
+    <button type="button" data-filter="{{ c.key }}" aria-pressed="false">{{ c.en if lang == 'en' and c.en else c.key }}</button>
+    {% endfor %}
+    {% if any_for_sale %}
+    <button type="button" data-toggle="te-koop" aria-pressed="false">{{ t.only_for_sale }}</button>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {% if paintings %}
+  <div class="wall" data-gallery>
+    {% for p in paintings %}
+      {% include "_work.html" %}
+    {% endfor %}
+  </div>
+  <p class="empty" data-empty hidden>{{ t.no_results }}</p>
+  {% else %}
+  <p class="empty">{{ t.none_yet }}</p>
+  {% endif %}
+</div>
+{% endblock %}
+{% block scripts %}<script src="/js/gallery.js" defer></script>{% endblock %}

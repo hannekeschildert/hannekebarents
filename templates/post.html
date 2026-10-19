@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block main %}
+<div class="wrap narrow">
+  <p class="back"><a href="{{ L('/nieuws/') }}">{{ t.back_news }}</a></p>
+  <article>
+    <header class="post-head">
+      <p class="meta">{{ post.date | date_fmt }}</p>
+      <h1>{{ loc(post, 'title') }}</h1>
+    </header>
+    {% if post.image %}
+    <div class="post-cover">{{ img(post.image, post.alt or "", "(min-width: 62rem) 56rem, 92vw", True) }}</div>
+    {% endif %}
+    {% if body_fallback(post) %}<p class="lang-note">{{ t.only_other_language }}</p>{% endif %}
+    <div class="prose"{% if body_fallback(post) %} lang="nl"{% endif %}>{{ body_of(post) }}</div>
+  </article>
+</div>
+{% endblock %}
